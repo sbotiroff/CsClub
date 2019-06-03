@@ -1,0 +1,760 @@
+/* ##########################################################################
+Basic setup
+#############################################################################*/
+* {
+  box-sizing: border-box;
+}
+
+
+body {
+  margin: 0;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  overflow-x: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+}
+
+header {
+  width: 100%;
+  z-index: 100;
+  padding: 10px;
+  display: flex;
+  color: white;
+  transition: 800ms;
+  position: absolute;
+  justify-content:space-between;
+  border-bottom: 0px solid white;
+  background-color: rgba(0, 0, 0, .30);
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2);
+  
+}
+
+#nav2 {
+  background-color: black;
+}
+
+header h1 {
+  margin: 0;
+  padding: 2px;
+  color: #5F9965;
+  margin-left: 1em;
+  border: 0.5px solid rgba(255, 255, 255, 0);
+  
+
+}
+
+header h1>a {
+  color: white;
+  text-decoration: none;
+  transition: all 300ms ease;
+}
+
+header h1:hover {
+  color: white;
+  border: 0.5px solid rgba(255, 255, 255);
+}
+
+header nav {
+  width: 40em;
+  padding: 5px;
+}
+
+.dashboard-hidden-nav{
+  width: 7em;
+}
+
+header nav ul {
+  display: flex;
+  margin: 0 auto;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+header li {
+  list-style-type: none;
+}
+
+header nav a {
+  padding: 10px;
+  font-size: larger;
+  position: relative;
+  font-family: Roboto;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.white-nav {
+  color: black;
+}
+
+header nav a::after {
+  background: #5F9965;
+  content: '';
+  display: block;
+  border: 2px;
+  height: 2px;
+  left: 50%;
+  position: absolute;
+  transition: width 300ms ease, left 300ms ease;
+  width: 0;
+}
+
+header nav a:hover::after {
+  left: 0;
+  width: 100%;
+
+}
+
+header nav a {
+  color: rgba(255, 255, 255, 0.801);
+}
+
+.active {
+  color: white;
+}
+
+.active::after {
+  background: #5F9965;
+  content: '';
+  display: block;
+  border: 2px;
+  height: 2px;
+  left:0;
+  position: absolute;
+  transition: width 300ms ease, left 300ms ease;
+  width: 100%;
+  bottom: 8px;
+}
+
+.headercolor {
+  margin: 0;
+  width: 100%;
+  height: 4em;
+  background-color: rgb(55, 66, 77);
+}
+
+main {
+  flex: 1;
+  padding-top: 5em;
+  padding-bottom: 2em;
+}
+
+footer {
+  background-color: rgb(26, 35, 43);
+  color: white;
+  padding-left: 1em;
+}
+
+.full-main {
+  padding: 0;
+}
+
+@keyframes run {
+  0% {
+    left: 0;
+  }
+
+  100% {
+    left: 90%;
+  }
+}
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgb(23, 31, 48);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(57, 108, 78);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(57, 108, 78);
+}
+
+#error {
+  margin-top: 10em;
+  text-align: center;
+  
+  font-size: 30pt;
+  color: white;
+  text-shadow: 1px 2px 5px black;
+}
+.error-page {
+  background:url("../images/admin.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+
+
+@media only screen and (max-width: 900px) {
+  header {
+    flex-direction: column;
+  }
+
+  header h1 {
+    margin: 0 auto;
+  }
+
+  header nav {
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  header nav ul {
+    padding: 0;
+    flex-wrap: wrap;
+  }
+
+  header nav ul li {
+    flex-basis: 30%;
+    text-align: center;
+    padding-top: 1em;
+  }
+
+  main {
+    padding-top: 11em;
+  }
+}
+
+button {
+  cursor: pointer;
+  transition: all ease 300ms;
+}
+
+
+
+/* ##########################################################################
+Loading icon
+#############################################################################*/
+div#load_screen {
+  background: #3C586B;
+  opacity: 1;
+  position: fixed;
+  z-index: 200;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+.loading {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -30px 0 0 -30px;
+  transform: rotate(45deg);
+}
+.loading div {
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  border-radius: 100%;
+  float: left;
+  margin-bottom: 12px;
+  animation: scaleDot 2s ease infinite;
+}
+.loading div:not(:nth-child(4n+4)) {
+  margin-right: 12px;
+}
+.loading div:nth-child(1) {
+  animation-delay: 0;
+}
+.loading div:nth-child(2),
+.loading div:nth-child(5) {
+  animation-delay: 0.1s;
+}
+.loading div:nth-child(3),
+.loading div:nth-child(6),
+.loading div:nth-child(9) {
+  animation-delay: 0.2s;
+}
+.loading div:nth-child(4),
+.loading div:nth-child(7),
+.loading div:nth-child(10),
+.loading div:nth-child(13) {
+  animation-delay: 0.3s;
+}
+.loading div:nth-child(8),
+.loading div:nth-child(11),
+.loading div:nth-child(14) {
+  animation-delay: 0.4s;
+}
+.loading div:nth-child(12),
+.loading div:nth-child(15) {
+  animation-delay: 0.5s;
+}
+.loading div:nth-child(16) {
+  animation-delay: 0.6s;
+}
+@-moz-keyframes scaleDot {
+  40% {
+    transform: scale(1.3) translate(-2px, -2px);
+  }
+  80% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@-webkit-keyframes scaleDot {
+  40% {
+    transform: scale(1.3) translate(-2px, -2px);
+  }
+  80% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@-o-keyframes scaleDot {
+  40% {
+    transform: scale(1.3) translate(-2px, -2px);
+  }
+  80% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes scaleDot {
+  40% {
+    transform: scale(1.3) translate(-2px, -2px);
+  }
+  80% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+
+
+
+
+/* ##########################################################################
+Home page
+#############################################################################*/
+
+
+.home-header {
+  margin: 0;
+  min-height: 100vh;
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-image: url('../images/code_coding_binary_code_abstract_patterns_112140_1920x1080.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  
+
+}
+.home-header h2 {
+  font-size:3em;
+  margin: 0;
+  position: absolute;
+  text-shadow: 1px 12px 5px black;
+
+}
+
+.sub-main{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+#id {
+  z-index: -2;
+  position: absolute;
+}
+.top-bar{
+  background-color: #1B2631;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  color: white;
+}
+
+
+/* ##########################################################################
+Sign up page
+#############################################################################*/
+.signup-main {
+  background: url('../images/highline/hol-interdisciplinary_program-desmoines-min.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: contain;
+  
+}
+
+.signup-main form {
+  display: flex;
+  flex-direction: column;
+  width: 25em;
+  padding: 2em;
+  margin: 0 auto;
+  background-color:#2B3136;
+  border-radius: 2px;
+  border: 1px solid white;
+  margin-top: 2em;
+  color: white;
+  box-shadow: 0px 35px 43px 11px rgba(0,0,0,0.75);
+  
+}
+
+.signup-main form h2{
+  text-align: center;
+  color: white;
+  font-size: 20pt;
+  border-bottom: 1px solid white
+}
+
+.signup-main form input[type="text"],.signup-main form input[type="email"] {
+   height: 40px;
+   width: 100%;
+   border: none;
+   border-bottom:1px solid rgb(197, 197, 197);
+   background-color:#2B3136;
+   padding: 5px;
+   outline: none;
+   margin-top:1em;
+   font-size: 15pt;
+   box-shadow:  0px 5px 5px -3px rgba(206, 206, 206, 0.75);
+   color: white;
+ }
+
+ .signup-main form input::placeholder{
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.753);
+}
+
+.signup-main form>button{
+  margin-top: 10px;
+}
+
+
+.datetime{
+  border-bottom: 1px solid white;
+  display: flex;
+  justify-content: center;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.datetime > button {
+  margin-left: 10px;
+  background-color: rgb(187, 36, 36);
+  color: white;
+  border: 1px solid black;
+  outline: none;
+  padding: 10px;
+}
+.datetime > button:hover{
+  box-shadow:  0px 5px 5px -3px rgba(172, 172, 172, 0.75);
+}
+
+
+ 
+.signup-main form [type="datetime-local"] {
+  background: url('../images/icon/calendar-icon.png') 98% 50% no-repeat;
+  width: 80%;
+  border: none;
+  border-bottom:1px solid rgb(165, 165, 165);
+  background-color: #2B3136;
+  outline: none;
+  padding: 6px;
+  color: white;
+  box-shadow:  0px 5px 5px -3px rgba(172, 172, 172, 0.75);
+  
+}
+
+.signup-main form [type100="datetime-local"]::-webkit-inner-spin-button {
+  display: none;
+}
+.signup-main form [type100="datetime-local"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+}
+
+ 
+.signup-main form>button {
+  font-weight: bold;
+   margin: 0 auto;
+   margin-top: 2em;
+   width: 100%;
+   padding:0.5em;
+   font-size: 14pt;
+   background-color: #5F9965;
+   border:1px solid white;
+   color: white;
+   transition: all ease 300ms;
+   outline: none;
+   box-shadow:  0px 5px 5px -3px rgba(172, 172, 172, 0.75);
+   
+ 
+ }
+ .signup-main form>button:hover{
+   box-shadow:  0px 15px 30px -3px rgba(187, 187, 187, 0.75);
+   background-color: rgb(67, 153, 76);
+ }
+
+.regular-checkbox {
+	-webkit-appearance: none;
+	background-color: #fafafa;
+	border: 1px solid #cacece;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+	padding: 9px;
+	border-radius: 3px;
+	display: inline-block;
+	position: relative;
+}
+
+.regular-checkbox:active, .regular-checkbox:checked:active {
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+}
+
+.regular-checkbox:checked {
+	background-color: #e9ecee;
+	border: 1px solid #adb8c0;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+	color: #99a1a7;
+}
+.regular-checkbox:checked:after {
+	content: '\2714';
+	font-size: 14px;
+	position: absolute;
+	top: 0px;
+	left: 3px;
+	color: #99a1a7;
+}
+
+
+
+
+/* ######################################################################
+FAQ
+######################################################################*/
+
+.faq-main{
+  display: flex;
+  background-image: url("../images/highline/Highline-College-Campus.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  flex-direction: column;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.faq-main .faq-container{
+  width:80%;
+  border:1px solid white;
+  background-color: rgb(55, 69, 80);
+  margin: 0 auto;
+}
+
+.faq-main .faq-container h2 {
+  color: white;
+  text-align: center;
+}
+
+.accordion {
+  list-style: none;
+  padding: 0;
+}
+.accordion .inner {
+  padding: 1em;
+  overflow: hidden;
+  display: none;
+  margin:3em;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  color: white;
+}
+.accordion .inner.show {
+  /*display: block;*/
+}
+.accordion li {
+  margin: 0.5em 0;
+}
+.accordion li a.toggle {
+  font-weight: bold;
+  max-width: 100%;
+  display: block;
+  border-bottom: 1px solid white; 
+  color:white;
+  padding: 1em;
+  border-radius: 0.15em;
+  text-decoration: none;
+  box-shadow:  0px 5px 10px -3px rgba(255, 255, 255, 0.75);
+  margin: 2em;
+  text-align: center;
+  font-size: 14px;
+  transition: all ease-out 300ms;
+  
+
+}
+.accordion li a.toggle:hover{
+  background-color: #5F9965;
+  box-shadow:  0px 10px 25px -3px rgba(173, 173, 173, 0.75);
+}
+/* ######################################################################
+Opportunity
+#########################################################################*/
+.opportunity{
+  display: flex;
+  flex-direction: column;
+}
+.opportunity>div{
+box-shadow: 1px 7px 64px 12px rgba(0,0,0,0.75);
+width: 80%;
+margin: 0 auto;
+margin-bottom:3em;
+padding: 2em;
+}
+
+.opportunity section{
+ border-bottom: 3px solid #5F9965;
+ margin-top:2em;
+}
+
+/* ######################################################################
+Contact
+#########################################################################*/
+.contact{
+display: flex;
+flex-direction: column;
+}
+.all-leaders{
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-around;
+  margin: 0 auto;
+}
+
+.leader{
+max-width: 20em;
+}
+
+.leader h3{
+  text-align: center;
+}
+
+.leader li{
+  list-style-type: none;
+}
+
+.leader img{
+  height:19em;
+  border-radius: 16em;
+  box-shadow: 10px 13px 36px 3px rgba(0,0,0,0.75);
+}
+
+/* ######################################################################
+About
+#########################################################################*/
+.about {
+  display: flex;
+}
+.about section {
+  width: 80%;
+  margin: 0 auto;
+}
+.about section p {
+  border:1px solid black;
+  padding: 2em;
+  box-shadow: 0px 21px 51px 6px rgba(0,0,0,0.75);
+}
+.about section h2{
+  text-align: center;
+}
+
+/* ######################################################################
+CS-ADMIN LOGIN
+#########################################################################*/
+
+.cs-admin-login{
+ background: url('../images/admin.jpg');
+ background-attachment: fixed;
+ background-size: cover;
+ background-position: center;
+}
+
+.cs-admin-login form{
+  display: flex;
+  flex-direction: column;
+  width: 25em;
+  padding: 2em;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.747);
+  border-radius: 2px;
+  box-shadow:  0px 25px 60px -3px rgba(0,0,0,0.75);
+  margin-top: 2em;
+}
+
+.cs-admin-login form h2{
+  text-align: center;
+  color: rgb(49, 49, 49);
+  font-size: 20pt;
+  border-bottom: 1px solid black;
+}
+
+.cs-admin-login form input {
+  height: 40px;
+  width: 100%;
+  border: none;
+  border-bottom:1px solid black;
+  background-color: rgba(255, 255, 255, 0.281);
+  padding: 5px;
+  outline: none;
+  margin-top:1em;
+  font-size: 15pt;
+  box-shadow:  0px 5px 5px -3px rgba(0,0,0,0.75);
+  
+}
+
+.cs-admin-login form input::placeholder{
+  font-style: italic;
+  color: rgba(29, 37, 48, 0.753);
+}
+
+.cs-admin-login form button {
+  margin: 0 auto;
+  margin-top: 2em;
+  width: 100%;
+  padding:0.5em;
+  font-size: 14pt;
+  background-color: rgb(109, 136, 173);
+  border: none;
+  color: white;
+  transition: all ease 300ms;
+  outline: none;
+  box-shadow:  0px 5px 5px -3px rgba(0,0,0,0.75);
+
+}
+.cs-admin-login form button:hover{
+  box-shadow:  0px 15px 30px -3px rgba(0,0,0,0.75);
+}
