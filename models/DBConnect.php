@@ -7,9 +7,9 @@ class DBConnect{
 
     protected function dbConnection(){
 		$this->dbname = "groupDB";
-		$this->username = "sbotiroff";
+		$this->username = "";
         $this->hostname = "localhost";
-		$this->password = "Ingame1995";
+		$this->password = "";
 		try{
 			$dsn = "mysql:host=".$this->hostname.";dbname=".$this->dbname;
 			$pdo = new PDO($dsn,$this->username,$this->password);
